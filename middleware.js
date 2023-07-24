@@ -10,6 +10,7 @@ export async function middleware(req) {
   const locale = pathname.split("/")[1];
   // Check if the default locale is in the pathname
   if (defaultLocale === locale) {
+    console.log("remove default locale");
     // we remove locale if pathname contains default locale, by redirecting
     if (pathname.startsWith(`/${locale}/`)) {
       // if pathname has subpath, remove "/locale", eg. from "/ca/something" to "/something"
@@ -25,6 +26,7 @@ export async function middleware(req) {
   });
 
   if (pathnameIsMissingValidLocale) {
+    console.log("hide default locale, but add it");
     // we rewrite pathnames without valid locale: visit `/ca`, but browser url shows `/`
     // Incoming request: "/hello"
     // Rewritten request: page shown "/en/hello", browser url "/hello"

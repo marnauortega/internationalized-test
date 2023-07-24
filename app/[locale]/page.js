@@ -1,7 +1,9 @@
-export default function Home() {
+export default function Home({ params: { locale } }) {
   return (
     <main>
-      <p>Hello</p>
+      {locale === "ca" && <p>Hola en Català</p>}
+      {locale === "es" && <p>Hola en Español</p>}
+      {locale === "en" && <p>Hello in English</p>}
     </main>
   );
 }

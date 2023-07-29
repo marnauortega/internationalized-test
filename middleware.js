@@ -8,8 +8,12 @@ export async function middleware(req) {
   const pathname = req.nextUrl.pathname;
   const searchParams = req.nextUrl.search;
   const locale = pathname.split("/")[1];
+
+  const alreadyRewritten = req.headers.get("x-middleware-rewrite");
+  console.log(req.headers);
+
   // Check if the default locale is in the pathname
-  if (defaultLocale === locale) {
+  if (defaultLocale === locale && !alreadyRewritten) {
     console.log("remove default locale");
     // we remove locale if pathname contains default locale, by redirecting
     if (pathname.startsWith(`/${locale}/`)) {

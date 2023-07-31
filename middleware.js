@@ -34,9 +34,11 @@ export async function middleware(req) {
     // we rewrite pathnames without valid locale: visit `/ca`, but browser url shows `/`
     // Incoming request: "/hello"
     // Rewritten request: page shown "/en/hello", browser url "/hello"
+    // And remove trailing slash
+    if (pathname === "/") pathname = "";
     return middlewareRequest.rewrite(
       // Pathname already includes "/"
-      new URL("/ca", req.url)
+      new URL(`/${defaultLocale}${pathname}${searchParams}`, req.url)
     );
   }
 }
